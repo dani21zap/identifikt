@@ -1,0 +1,50 @@
+.editr {
+	border-color: $card-border-color;
+	
+	& .editr--toolbar {
+		padding: ($card-spacer-y - rem(8px)) ($card-spacer-x - rem(8px));
+		background: $card-cap-bg;
+		height: auto;
+		border-color: $card-border-color;
+		
+		& a {
+			color: $gray-800;
+			
+			@include border-radius($border-radius);
+			
+			&:hover {
+				background: $gray-200;
+			}
+			&.vw-btn-separator {
+				display: block;
+				overflow: hidden;
+				height: rem(32px);
+				position: relative;
+				
+				& .vw-separator {
+					border: 0 !important;
+					background: $gray-200 !important;
+					left: 0;
+					right: 0;
+				}
+			}
+		}
+	}
+	& .editr--content {
+		padding: $card-spacer-y $card-spacer-x !important;
+		
+		&[contenteditable=true]:empty:before {
+			color: $gray-300;
+		}
+	}
+}
+.card {
+	& > .editr {
+		border: none;
+	}
+	& > form {
+		& > .editr {
+			border: none;
+		}
+	}
+}

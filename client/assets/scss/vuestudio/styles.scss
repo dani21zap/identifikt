@@ -1,0 +1,26 @@
+/*!
+ * VueStudio v1.0.0 (https://seantheme.com/vue-studio/)
+ * Copyright 2020 SeanTheme
+ */
+
+//styles
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+@import 'variables';
+@import 'bootstrap/scss/bootstrap.scss';
+@import 'bootstrap-vue/src/index.scss';
+
+@import 'base/typography';
+
+@import 'functions';
+@import 'mixins';
+@import 'helper';
+@import 'reboot';
+
+@import 'app';
+@import 'ui';
+@import 'plugins';
+@import 'pages';
+@import 'widgets';
+
+// GLOBAL STYLES

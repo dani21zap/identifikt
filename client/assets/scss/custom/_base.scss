@@ -1,0 +1,68 @@
+body, html{
+	font-family: 'Montserrat', sans-serif;
+}
+
+.box {
+	@extend .shadow;
+	background: white;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.custom-tabs {
+	border-bottom: 1px solid #c9d2e3;
+	.nav-tabs {
+		margin: 0 auto;
+		padding: 0 $app-content-padding-x;
+		max-width: 1500px;
+		border-bottom: none;
+	}
+
+	@include media-breakpoint-down(md) {
+		padding: 0 $app-content-sm-padding-x;
+	}
+	.nav-link {
+		color: $gray-600;
+		border: none;
+	}
+	.nav-link.active {
+		border-bottom: 4px solid $primary;
+		color: $primary;
+	}
+}
+
+textarea {
+	min-height: 100px;
+	max-height: 500px;
+}
+
+/* Specify your own gutters for every breakpoint. I use media-breakpoint-up so to avoid a default width it's better to always include "xs", and then you can do whatever you want */
+$grid-gutter-widths: (xs: 16px, md: 20px, lg: 30px);
+
+/* You don't need to change anything below */
+@each $grid-breakpoint, $grid-gutter-width in $grid-gutter-widths {
+	@include media-breakpoint-up($grid-breakpoint) {
+		$grid-gutter-half-width: $grid-gutter-width * 0.5;
+		.row:not(.no-gutters) {
+			margin-right: -$grid-gutter-half-width;
+			margin-left: -$grid-gutter-half-width;
+		}
+		.row:not(.no-gutters) > .col,
+		.row:not(.no-gutters) > [class*="col-"] {
+			padding-right: $grid-gutter-half-width;
+			padding-left: $grid-gutter-half-width;
+		}
+        .row:not(.no-gutters) > .col-my{
+            margin-top: $grid-gutter-width * 0.5;
+            margin-bottom: $grid-gutter-width * 0.5;
+        }
+	}
+}
+
+.page {
+	padding: 1rem 0;
+	@include media-breakpoint-up(lg) {
+		padding: 3rem 0;
+	}
+}

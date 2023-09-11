@@ -1,0 +1,19 @@
+.ps {
+	& .ps__thumb-x,
+	& .ps__thumb-y {
+		background: $gray-800 !important;
+		opacity: 0.45;
+	}
+	& .ps__rail-x,
+	& .ps__rail-y {
+		&.ps--clicking, 
+		&:focus,
+		&:hover {
+			background: none;
+		}
+	}
+}
+.app-sidebar .ps__rail-x,
+.app-sidebar .ps__rail-y {
+	display: none;
+}

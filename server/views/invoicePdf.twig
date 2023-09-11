@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div class='main-header'>
+            <table>
+                <tr>
+                    <div class='left-header'>
+                        <div id= 'left-img'><img src='https://ecartapi.com/images/logo-negro.svg'></div>
+                        <div class='customer-block'>
+                            <div id='company-cu' class='customer-info'>{{ info.company }}</div>
+                            {% if info.address.address1 and info.address.address1 != '' %}
+                                <div id='address-cu' class='customer-info'>{{ info.address.address1 }}</div>
+                            {% endif %}
+                            {% if info.address.address2 %}
+                                <div id='address-cu' class='customer-info'>{{ info.address.address2 }}</div>
+                            {% endif %}
+                      {#       {% if info.address.city and info.address.state and info.addres.country %} #}
+                            <div id='state-city' class='customer-info'>{{ info.address.city }}, {{ info.address.state }}, {{ info.address.country }}</div>
+                            {# {% endif %} #}
+{#                             {% if info.address.country and info.address.country != '' %}
+                            <div id='country-cu' class='customer-info'>{{ info.address.country }}</div>
+                            {% endif %} #}
+                            {% if info.address.email and info.address.email != '' %}
+                                <div id='email-cu' class='customer-info'><span>Email:</span> {{ info.address.email }}</div>
+                            {% endif %}
+                            {% if info.address.phone and info.address.phone != '' %}
+                                <div id='phone-cu' class='customer-info'><span>Phone:</span> {{ info.address.phone }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class='right-header'>
+                        <div id='title-header'>INVOICE</div>
+                        <div class='company-block'>
+                            <div id='company-co' class='company-info'>ECART TECHNOLOGIES LLC</div>
+                            <div class='company-info'><span>Bank account number:</span> 9800372364</div>
+                            <div id='address-co' class='company-info'>200 CONTINENTAL DRIVE SUITE 401 PC. 19713</div>
+                            <div id='address-co' class='company-info'>NEWARK, DELAWARE</div>
+                            <div id='email-co' class='company-info'><span>Email:</span> accounting1@tendencys.com</div>
+                            <br>
+                            <div id='invoice' class='company-info'><span>Invoice #</span>{{ payment.info.number }}</div>
+                            {% if info.poNumber and info.poNumber != '' %}
+                                <div id='PONumber' class='company-info'><span>P.O. NUMBER </span>{{ info.poNumber }}</div>
+                            {% endif %}
+                            <div id='date' class='company-info'><span>Date:</span> {{ payment.info.created_at }}</div>              
+                        </div>
+                    </div>
+                </tr>
+            </table>
+        </div>
+        <div class='content'>
+            <table>
+                <tr class='tr-head'>
+                    <th>Item</th>
+                    <th>QTY</th>
+                    <th>Rate</th>
+                    <th>Tax</th>
+                    <th>Subtotal</th>
+                </tr>
+                {% for app in payment.apps %}
+               <tr>
+                    <td>(App requests) {{app.name}}</td>
+                    <td>{{app.count}}</td>
+                    <td>${{app.price|number_format(2,'.',',')}}</td>
+                    <td>$0.00</td>
+                    <td>${{app.total|number_format(2,'.',',')}}</td>               
+                </tr> 
+                {% endfor %}
+                {% if payment.info.totals.domains > 0 %}
+                <tr>
+                    <td>Domains</td>
+                    <td>${{payment.info.totals.domains / 19.99}}</td>
+                    <td>${{19.99}}</td>
+                    <td>$0.00</td>
+                    <td>${{payment.info.totals.domains}}</td>               
+                </tr>   
+                {% endif %}
+            </table>
+        </div>
+        <div class='totals'>
+            <b>INVOICE SUMMARY</b>
+            <div class='total-info'><b><div>USD</div> <div>USD</div> <div>USD</div> <div>USD</div></b></div>
+            <div class='total-info'><div>${{payment.info.totals.subtotal}}</div> <div>${{payment.info.totals.tax}}</div><div>${{payment.info.totals.discount}}</div><div>${{payment.info.totals.total}}</div></div>
+            <div class='total-info'><b><div>SUBTOTAL</div> <div>TAX</div><div>DISCOUNT</div><div>TOTAL</div></b></div>
+        </div>
+    </body>
+</html>
+<style>
+html {
+    font-family: system-ui, sans-serif;
+    font-size: 8px;
+}
+.main-header {
+    margin: auto;
+    width: 80%;
+    height: 170px;
+    position: relative;
+}
+    .left-header {
+        width: 25%;
+        height: 100%;
+        float: left;
+    }
+        #left-img{
+            flex:  1;
+        }
+        .left-header img {
+            width: 80%;
+        }
+
+        .customer-block {
+            padding: 40px 0px 0px 0px;
+
+        }
+            .company-info {
+
+            }
+            #company-cu {
+                font-size: 8px;
+                font-weight: 700;
+            }
+    .right-header {
+        text-align: right;
+        float: right;
+
+    }
+        #title-header {
+            color: gray;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .company-block {
+            padding: 30px 0px 0px 0px;
+        }
+            .customer-info {
+
+            }
+            #company-co {
+                font-size: 8px;
+                font-weight: 700;
+            }
+.content {
+    width: 80%;
+    margin: auto;
+}
+    table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+        border-collapse: collapse;
+        margin-bottom: 16px;
+    }
+    .tr-head{
+        border-bottom: 2px solid #9492924f;
+        border-top: 2px solid #9492924f;
+        background: #f2f2f2;
+    }
+    th {
+        text-align: center;
+        padding: 4px;
+    }
+    tr>th:nth-child(1){
+        text-align:left 
+    }
+    td {
+        text-align: center;
+        /*border-bottom: 2px solid #9492924f;*/
+        padding: 6px;
+    }
+    tr>td:nth-child(1){
+        text-align:left 
+    }
+
+.totals{
+    width: 80%;
+    margin: auto;
+    text-align: right;
+}
+    .totals> b:nth-child(1) {
+        margin-right: 70px; 
+        margin-bottom: 8px;
+        display: block;
+    }
+    .total-info{
+        float: right;
+        padding: 4px;
+    }
+    .total-info div {
+        margin-bottom: 15px;
+        margin-right: 15px;
+    }
+
+    .total-info>b {
+        font-weight: 600;
+    }
+
+</style>

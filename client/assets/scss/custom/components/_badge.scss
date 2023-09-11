@@ -1,0 +1,6 @@
+.#{$namespace}-badge-green{
+	padding: 3px 10px;
+	border-radius: $border-radius-pill;
+	background: mix(white, $green, 10%);
+	color: $green;
+}
