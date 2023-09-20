@@ -7,8 +7,7 @@
                 </div>                
                 <div class="col-md-3 pt-2">
                     <div class="text-gray-500 d-flex flex-column">
-                        <nuxt-link to="/terms-and-conditions" class="text-gray-500">Terms and Conditions</nuxt-link>
-                    </div>
+                        <nuxt-link to="/terms-and-conditions" class="text-gray-500 text-white">Terms and Conditions</nuxt-link>
                 </div>
                 <div class="col-md-3 pt-2">
                     <a href="#"><i class="fab fa-whatsapp"></i></a>
@@ -51,4 +50,8 @@ export default {
             margin-left: 10px;
         }
     }
+    .text-white {
+        color: white; /* Cambia el color del texto a blanco */
+    }
+
 </style>

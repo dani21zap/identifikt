@@ -22,9 +22,8 @@
 </template>
 <style lang ="css">
 .HowTo {
-	background: linear-gradient(0deg, black, #313030, #c8c7c7 80%, #e5e7eb); 
-	/*background:  linear-gradient(0deg, #f34800, #fa9359, #e5d2cd 80%, #e5e7eb);*/
-}	
+	background-color: white; /* Cambia a blanco */
+}
 .HT-Title {
 	padding-top: 80px;
 	padding-bottom: 200px;
