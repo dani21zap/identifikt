@@ -1,17 +1,23 @@
 <template>
-    <div class="bg-black" style="box-shadow: 0px -1px 1px 0px #0d0d0d;">
-        <div class="container pt-12 pb-12 text-white d-flex flex-wrap">
-                <div class="col-md-3 pt-2">
-                    <!-- <span class='text-landing-primary'> Contact </span> -->
-                    <p class='text-gray-500 pt-2'><span class='fas fa-envelope ft-option'></span> <a href="mailto:admin@identifikt.com" class="text-gray-500">admin@identifikt.com</a></p>
+    <div class="bg-primary">
+        <div class="justify-content-between align-content-center container pt-12 pb-12 text-white d-flex flex-wrap">
+                <div class="flex-md-column pt-3">
+                    <span class='text-landing-primary'>Contacténos </span>
+                    <p class='pt-2'>
+                        <span class='fas fa-envelope ft-option'></span> <a href="mailto:admin@identifikt.com" class="text-gray-500">admin@identifikt.com</a>
+                    </p>
+                    <p class='pt-2'>
+                        <span class='fas fa-solid fa-phone ft-option'></span> <a href="tel:62-7523-4595" class="text-gray-500">62-7523-4595</a>
+                    </p>
                 </div>                
-                <div class="col-md-3 pt-2">
-                    <div class="text-gray-500 d-flex flex-column">
-                        <nuxt-link to="/terms-and-conditions" class="text-gray-500">Terms and Conditions</nuxt-link>
-                    </div>
+                <div class="flex-md-column pt-3">
+                    <span class='text-landing-primary'>Páginas</span>
+                    <!-- <div class="text-gray-500 d-flex flex-column"> -->
+                        <p class='pt-2'><nuxt-link to="/terms-and-conditions" class="text-gray-500">Terms and Conditions</nuxt-link></p>
+                    <!-- </div7> -->
                 </div>
-                <div class="col-md-3 pt-2">
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <div class="flex-md-column pt-2">
+                    
                 </div>
             </div>
         <hr>
@@ -30,12 +36,11 @@ export default {
 
 <style lang="scss" scoped>
     .ft-option{
-        border-radius: 25px;
-        background: #f44b04;
-        padding: 7px;
         color: white;
         text-align: center;
         font-size: 17px;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
     }
     .links{
         a{

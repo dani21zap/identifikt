@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="app-content pt-3 pb-3">
-			<h2>Engomados vigentes</h2>
+			<h2>Engomados vencidos</h2>
 			<p>En este apartado se encuentran todos los engomados existentes de la plataforma para filtrar por estado, vencido, fecha de creación y etc.</p>
 		</div>
 		<hr />
@@ -16,7 +16,7 @@
 			<div class="engomados-table">
 				<div class="custom-header-2" :hidden="filters.q === '' && !countEngomados">
 					<div>
-						<p class="pb-0">Cantidad de engomados: {{ countEngomados }}</p>
+						<p class="pb-0">Engomados vencidos: {{ countEngomados }}</p>
 					</div>
 					<!-- <div v-if="userData">
 						<span class="pb-0"> {{ userData.month_requests }} </span>
@@ -149,21 +149,9 @@ export default {
 		...mapState('userInformation', ['userData']),
 	},
 
-	watch: {
-		$route(to, from) {
-			if (from.name === 'apps-new' || from.name === 'apps-id') {
-				this.$refs.table.refresh();
-			}
-		},
-	},
-
 	mounted() {
-		this.$nuxt.$on('app-created', () => {
-			this.$refs.table.refresh();
-		});
-		this.$nuxt.$on('app-deleted', () => {
-			this.$refs.table.refresh();
-		});
+		this.provider();
+		this.$refs.table.refresh();
 	},
 
 	methods: {
@@ -173,6 +161,7 @@ export default {
 			const params = {
 				limit: perPage,
 				page: currentPage,
+				expired: true
 			};
 			if (filter.q !== '') {
 				params.q = filter.q;

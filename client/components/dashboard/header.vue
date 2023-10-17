@@ -1,9 +1,10 @@
 <template>
 	<div id="header" class="app-header" :class="[$style.header]">
-		<div class="brand" :class="[$style.brand]" v-if="!appOptions.appSidebarMinified">
-			<a href="/" class="brand-logo">
+		<div class="brand bg-identifikt" :class="[$style.brand]" v-if="!appOptions.appSidebarMinified">
+			<span class="logo">IDENTIFI-K-T</span>
+			<!-- <a href="/" class="brand-logo">
 				<img class="mx-auto" src="/images/logo-blanco.svg" alt="" width="150" />
-			</a>
+			</a> -->
 		</div>
 		<div class="menu flex" :class="[$style.wrapper]">
 			<div class="desktop-toggler" :class="[$style.toggle]">
@@ -98,7 +99,7 @@ export default {
 
 <style lang="scss" module>
 .header {
-	background: $secondary;
+	background-color: #003554;
 	padding-left: 0;
 	padding-right: 0;
 }
@@ -129,7 +130,7 @@ export default {
 	}
 }
 .brand {
-	background: $secondary;
+	background-color: #003554;
 	display: none;
 	padding: 0 20px;
 	align-items: center;
@@ -154,5 +155,15 @@ ul hr {
 	@media screen and (min-width: 600px) {
 		display: none;
 	}
+}
+</style>
+
+<style lang="css">
+.logo {
+	color: #CC2936;
+}
+
+.bg-identifikt {
+	background-color: #003554;
 }
 </style>

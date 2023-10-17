@@ -8,7 +8,7 @@ router.use('/api', require('./users.routes'));
 
 router.use('/api', require('./payments.routes'));
 
-router.use('/api/apps', require('./apps.routes'));
+router.use('/api/engomados', require('./engomados.routes'));
 
 router.use('/api/services', require('./services.routes'));
 

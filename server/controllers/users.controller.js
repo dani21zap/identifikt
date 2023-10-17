@@ -15,7 +15,6 @@ class usersController {
 
 	async createLogin(req, res, next) {
     	// Check if the username and password match in the database
-		console.log(req.body.username, req.body.password)
 		return DB_pool.query(
 			'SELECT * FROM admin WHERE username = ? AND password = ?',
 			[req.body.username, req.body.password]
@@ -57,7 +56,6 @@ class usersController {
 
 	async createPlateLogin(req, res, next) {
     	// Verificacion placa apellido aparecen en la base de datos
-		console.log(req.body.username, req.body.password)
 		return DB_pool.query(
 			'SELECT * FROM engomados WHERE plate_id = ? AND owner_lastname = ?',
 			[req.body.username, req.body.password]
@@ -69,14 +67,13 @@ class usersController {
 				let token = jwt.sign(
 					{
 						admin: false,
-						id: user.id,
-						read: user.scope_read,
-						write: user.scope_write,
-						email: user.email
+						id: user.plate_id,
+						read: false,
+						write: false,
+						email: user.owner_lastname
 					},
 					process.env.JWT_SECRET,
 				);
-				console.log(token);
 				return res.status(200).json({
 					success: true,
 					token: token,
@@ -84,7 +81,7 @@ class usersController {
 						id: user.plate_id,
 						read: true,
 						write: false,
-						email: user.owner_lastname,
+						email: null,
 						data: user
 					}
 				});
@@ -117,12 +114,45 @@ class usersController {
 	}
 
 	account(req, res, next) {
-        Users.findOne({
-        	_id: mongoose.Types.ObjectId(req.user.id)
-        })
-        .then(user => {
-            res.status(200).json(user);
-        }).catch(err => next(err))
+		console.log(req.user);
+		if (req.user.admin) {
+			return DB_pool.query(
+				'SELECT * FROM admin WHERE id = ?',
+				[req.user.id]
+			)
+			.then(([rows, fields]) => {
+				console.log(rows)
+		    	// If rows contain data, authentication is successful
+				if (rows.length > 0) {
+					return res.status(200).json(rows[0]);
+				    	// return rows[0];
+				} else {
+					throw new UnauthorizedError('Username or password incorrect');
+				}
+			})
+			.catch (error => {
+				console.log('Database error:', error);
+				next(error);
+			});
+		} else {
+			return DB_pool.query(
+			'SELECT * FROM engomados WHERE plate_id = ?',
+			[req.user.id]
+			)
+		.then(rows => {
+	    	// If rows contain data, authentication is successful
+			if (rows[0].length > 0) {
+				let user = rows[0][0];
+				return res.status(200).json(user);
+			} else {
+				throw new UnauthorizedError('Username or password incorrect');
+			}
+		})
+		.catch (error => {
+			console.log('Database error:', error);
+			next(error);
+		});
+		}
     }
 
     updateUser(req, res, next) {

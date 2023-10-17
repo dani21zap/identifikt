@@ -1,9 +1,9 @@
 <template>
-	<div class="bg-secondary">
+	<div class="bg-identifikt">
 		<div class="container-md">
 			<b-navbar toggleable="lg" type="dark" class="md:pt-6 md:pb-6 pr-0 pl-0">
 				<b-navbar-brand href="/home" class="font-extrabold fs-36px">
-					<span class="text-white">IDENTIFI-K-T</span>
+					<span class="logo">IDENTIFI-K-T</span>
 					<!-- <img data-not-lazy class="logo" src="/images/logo-blanco.svg" alt="ECARTAPI" /> -->
 				</b-navbar-brand>
 
@@ -19,25 +19,25 @@
 					<b-navbar-nav class="ml-auto">
 						<b-navbar-nav class="text-lg">
 							<b-nav-item is="li" class="nav-item mr-3 font-semibold">
-								<a class="nav-link" href="https://wa.me/8111111111" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+								<a class="nav-link" href="https://wa.me/6271390469" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 							</b-nav-item>
-							<b-nav-item is="li" class="nav-item mr-3 font-semibold">
-								<a class="nav-link" href="https://example.com" target="_blank">
+							<!-- <b-nav-item is="li" class="nav-item mr-3 font-semibold">
+								<a class="nav-link" href="tel:6275234595" target="_blank">
 									<i class="fa-solid fa-phone"></i>
 								</a>
-							</b-nav-item>
-							<b-nav-item is="li" class="nav-item mr-3 font-semibold">
+							</b-nav-item> -->
+							<!-- <b-nav-item is="li" class="nav-item mr-3 font-semibold">
 								<a class="nav-link" href="https://example.com" target="_blank">
 									<i class="fa-solid fa-envelope"></i>
 								</a>
-							</b-nav-item>
+							</b-nav-item> -->
 							<b-nav-item-dropdown class='mr-3'>
 								<!-- <template #default="{ expanded }">
 									<i v-if="!expanded" class="fas fa-bars"></i>
 									<i v-else class="fas fa-times"></i>
 								</template>
 								<i class="fas fa-bars"></i> -->
-								<b-dropdown-item href="/login" target="_blank" class="mr-3 font-semibold">Identificate </b-dropdown-item>
+								<b-dropdown-item href="/login" class="mr-3 font-semibold">Identificate </b-dropdown-item>
 							</b-nav-item-dropdown>
 
 						</b-navbar-nav>
@@ -70,15 +70,6 @@
 	transform: translateY(-1px);
 }
 
-.logo {
-	height: 30px;
-	@include media-breakpoint-up(md) {
-		height: 40px;
-	}
-}
-</style>
-
-<style lang="scss">
 .navbar-toggler {
 	font-size: 24px;
 	padding: 0;
@@ -102,5 +93,16 @@
 	color: $white;
 	justify-content: center;
 	align-items: center;
+}
+
+</style>
+
+<style lang="css">
+.logo {
+	color: #CC2936
+}
+
+.bg-identifikt {
+	background-color: #003554
 }
 </style>

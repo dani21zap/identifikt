@@ -1,5 +1,5 @@
 <template>
-	<div v-if="userData" class="app-content">
+	<div class="app-content">
 		<b-form @submit.prevent="updateUser">
 			<h3>Account information</h3>
 			<div class="box">
@@ -31,7 +31,7 @@
 										<forms-errors-feedback :field="$v.lastName"> </forms-errors-feedback>
 									</b-form-group>
 								</div>
-								<div class="col-lg-4">
+								<!-- <div class="col-lg-4">
 									<b-form-group label="Country">
 										<PuSkeleton v-if="pageLoading" height="35px"></PuSkeleton>
 										<b-input-group v-else prepend-html="<i class='fas fa-flag'></i>">
@@ -47,7 +47,7 @@
 										</b-input-group>
 										<forms-errors-feedback :field="$v.country"> </forms-errors-feedback>
 									</b-form-group>
-								</div>
+								</div> -->
 								<div class="col-lg-4">
 									<b-form-group label="Email">
 										<PuSkeleton v-if="pageLoading" height="35px"></PuSkeleton>
@@ -92,7 +92,7 @@
 							<forms-errors-feedback :field="$v.address2"> </forms-errors-feedback>
 						</b-form-group>
 					</div>
-					<div class="col-lg-4">
+					<!-- <div class="col-lg-4">
 						<b-form-group label="Country">
 							<PuSkeleton v-if="pageLoading" height="35px"></PuSkeleton>
 							<b-input-group v-else prepend-html="<i class='fas fa-flag'></i>">
@@ -108,7 +108,7 @@
 							</b-input-group>
 							<forms-errors-feedback :field="$v.addressCountry"> </forms-errors-feedback>
 						</b-form-group>
-					</div>
+					</div> -->
 					<div class="col-lg-4">
 						<b-form-group label="State">
 							<PuSkeleton v-if="pageLoading" height="35px"></PuSkeleton>
@@ -211,10 +211,10 @@ export default {
 			lastName: '',
 			phone: '',
 			email: '',
-			country: '',
+			// country: '',
 			address1: '',
 			address2: '',
-			addressCountry: '',
+			// addressCountry: '',
 			state: '',
 			city: '',
 			postalCode: '',
@@ -232,11 +232,11 @@ export default {
 			firstName: { required, alpha },
 			lastName: { required, alpha },
 			phone: { required, numeric, maxLength: maxLength(10), minLength: minLength(10) },
-			country: { required, alpha },
+			// country: { required, alpha },
 			email: { required, email },
 			address1: { required },
 			address2: { required },
-			addressCountry: { required },
+			// addressCountry: { required },
 			state: { required },
 			city: { required },
 			postalCode: { required },
@@ -252,14 +252,12 @@ export default {
 	},
 
 	computed: {
-		...mapState('countries', ['countries']),
-		...mapState('countries', ['options']),
+		// ...mapState('countries', ['countries']),
+		// ...mapState('countries', ['options']),
 		...mapState('userInformation', ['userData'])
 	},
 
 	async mounted() {
-		await this.getCountries();
-		this.fillingAccountInformation();
 	},
 
 	watch: {
@@ -278,10 +276,10 @@ export default {
 			if (this.$v.$invalid) return;
 		},
 
-		country() {
-			this.$v.$touch();
-			if (this.$v.$invalid) return;
-		},
+		// country() {
+		// 	this.$v.$touch();
+		// 	if (this.$v.$invalid) return;
+		// },
 
 		email() {
 			this.$v.$touch();
@@ -298,10 +296,10 @@ export default {
 			if (this.$v.$invalid) return;
 		},
 
-		addressCountry() {
-			this.$v.$touch();
-			if (this.$v.$invalid) return;
-		},
+		// addressCountry() {
+		// 	this.$v.$touch();
+		// 	if (this.$v.$invalid) return;
+		// },
 
 		state() {
 			this.$v.$touch();
@@ -343,13 +341,13 @@ export default {
 					first_name: this.firstName,
 					last_name: this.lastName,
 					company: this.company,
-					country: this.country,
+					// country: this.country,
 					phone: this.phone,
 					poNumber: this.poNumber || null,
 					address: { 
 						address1: this.address1,
 						address2: this.address2,
-						country: this.addressCountry,
+						// country: this.addressCountry,
 						state: this.state,
 						city: this.city,
 						postalCode: this.postalCode,
@@ -375,7 +373,7 @@ export default {
 				await this.$axios.put('/api/user/client');
 				this.$toast.success('New Client Id generated');
 				await this.getUserInformation();
-				this.fillingAccountInformation();
+				// this.fillingAccountInformation();
 			} catch (error) {
 				this.showError(error);
 			} finally {
@@ -392,10 +390,10 @@ export default {
 			this.lastName = this.userData.last_name || '';
 			this.phone = this.userData.phone || '';
 			this.email = this.userData.email || '';
-			this.country = this.userData.country || '';
+			// this.country = this.userData.country || '';
 			this.address1 = this.userData.address ? this.userData.address.address1 : '';
 			this.address2 = this.userData.address ? this.userData.address.address2 : '';
-			this.addressCountry = this.userData.address ? this.userData.address.country : '';
+			// this.addressCountry = this.userData.address ? this.userData.address.country : '';
 			this.state = this.userData.address ? this.userData.address.state : '';
 			this.city = this.userData.address ? this.userData.address.city : '';
 			this.postalCode = this.userData.address ? this.userData.address.postalCode : '';
@@ -405,7 +403,7 @@ export default {
 			this.pageLoading = false;
 		},
 
-		...mapActions('countries', ['getCountries']),
+		// ...mapActions('countries', ['getCountries']),
 		...mapActions('userInformation', ['getUserInformation'])
 	},
 };

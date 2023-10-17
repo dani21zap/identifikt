@@ -1,16 +1,6 @@
 <template>
     <div class="layout-simple">
         <Nuxt />
-        <CookieControl>
-            <template v-slot:bar class="cookieButtons">
-                <h3 >{{ $cookies.text.barTitle }}</h3>
-                <p class= "text-xs">{{ $cookies.text.barDescription }}</p>
-            </template>
-            <template v-slot:modal>
-                <h3>Manage consent preferences</h3>
-                <p class= "text-xs">Adjust your data preferences for this browser. Disabling data collection may affect your experience and the services we can offer you.</p>
-            </template>
-        </CookieControl>
     </div>
 </template>
 

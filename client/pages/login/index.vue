@@ -17,10 +17,10 @@
 							size="lg"
 							class="fs-15px"
 							v-model="username"
-							:label= "plate_auth ? 'Numero de engomado' : 'Usuario'"
+							:label="plate_auth ? 'Numero de engomado' : 'Usuario'"
+							:placeholder="plate_auth ? 'Numero de engomado' : 'Usuario'"
 							name="username"
 							type="text"
-							placeholder="Usuario"
 						/>
 					</b-input-group>
 					<forms-errors-feedback :field="$v.username"></forms-errors-feedback>
@@ -31,10 +31,10 @@
 						<b-input
 							:state="inputState($v.password)"
 							v-model="password"
-							:label= "plate_auth ? 'Apellido' : 'Contraseña'"
+							:label="plate_auth ? 'Apellido' : 'Contraseña'"
+							:placeholder="plate_auth ? 'Apellido' : 'Contraseña'"
 							name="password"
 							type="password"
-							placeholder="Password"
 							size="lg"
 							class="fs-15px"
 						/>
@@ -125,17 +125,22 @@ export default {
 				};
 				this.err = '';
 				let url = this.plate_auth ? '/api/plate/login' : '/api/login';
-				let push_to = this.plate_auth ? 'plate' : 'dashboard';
+				let push_to = {
+					name: 'dashboard'
+				};
 
 				const { data } = await this.$axios.post(url, payload);
-				
+				console.log(data);
+				if (this.plate_auth) {
+					push_to = {
+						path: '/plate-card/'+data.user.id,
+					};
+				}
 				const expires = this.$dayjs().add(100, 'year').toDate();
 				
 				this.$cookiz.set('token', data.token, { expires });
 				this.$axios.setHeader('Authorization', data.token);
-				this.$router.push({
-					name: push_to,
-				});
+				this.$router.push(push_to);
 			} catch (error) {
 				console.log(error);
 				this.loading = false;

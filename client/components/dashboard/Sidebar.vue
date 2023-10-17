@@ -1,8 +1,9 @@
 <template>
 	<div>
 		<div id="sidebar" class="app-sidebar new-class" :class="[$style.sidebar]">
-            <div :class="$style.wrapperLogo">
-                <img src="/images/logo-blanco.svg" width="150">
+            <div :class="$style.wrapperLogo" class="bg-identifikt">
+            	<span class="logo">IDENTIFI-K-T</span>
+                <!-- <img src="/images/logo-blanco.svg" width="150"> -->
             </div>
 			<vue-custom-scrollbar class="app-sidebar-content">
 				<div class="menu">
@@ -157,10 +158,20 @@ export default {
     }
     .wrapperLogo{
         z-index: 1020;
-		background: $secondary;
+		background: $brand;
         display: flex;
         align-items: center;
         justify-content: center;
         height: $app-header-height;
     }
+</style>
+
+<style lang="css">
+.logo {
+	color: #CC2936;
+}
+
+.bg-identifikt {
+	background-color: #003554;
+}
 </style>

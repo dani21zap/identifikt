@@ -6,13 +6,13 @@ const appSidebarMenu = [
 	{
 		url: '/dashboard',
 		icon: 'fa fa-tachometer-alt',
-		text: 'Dashboard',
+		text: 'Engomados',
 		class: 'only-exact',
 	},
 	{
-		url: '/dashboard/apps',
+		url: '/dashboard/vencidos',
 		icon: 'fab fa-buffer',
-		text: 'My Apps',
+		text: 'Engomados Vencidos',
 		// children: [
 		//     {text: 'Envia', url: '/apps/#'},
 		//     {text: 'enviapaqueteria', url: '/apps/#'},
@@ -27,43 +27,16 @@ const appSidebarMenu = [
 	// 	text : 'Prices',
 	// },
 
+	// {
+	// 	url: '/dashboard/pricing',
+	// 	icon: 'fas fa-tags',
+	// 	text: 'Engomados Expirados',
+	// 	target: '_blank',
+	// },
 	{
-		url: '/dashboard/pricing',
-		icon: 'fas fa-tags',
-		text: 'Our Prices',
-		target: '_blank',
-	},
-	{
-		url: '/dashboard/billing',
-		icon: 'fa fa-credit-card',
-		text: 'Billing',
-	},
-	{
-		url: 'https://docs.ecartapi.com/',
-		icon: 'fas fa-cogs',
-		text: 'API',
-		target: '_blank',
-	},
-	{
-		url: '/dashboard/documentation',
-		icon: 'fas fa-book',
-		text: 'Documentation',
-	},
-	{
-		url: 'https://envia.atlassian.net/servicedesk/customer/portal/8',
-		icon: 'far fa-question-circle',
-		text: 'Help Center',
-		target: '_blank',
-	},
-	{
-		url: '/dashboard/contact',
-		icon: 'fa-solid fa-phone',
-		text: 'Contact Us',
-	},
-	{
-		url: '/dashboard/settings',
+		url: '/dashboard/agregar',
 		icon: 'fas fa-cog',
-		text: 'Settings',
+		text: 'Agregar Engomado',
 	},
 ];
 

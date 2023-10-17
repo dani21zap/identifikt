@@ -13,6 +13,7 @@ export default {
 		async getUserInformation(context) {
 			try {
 				const { data: user } = await this.$axios.get('/api/account');
+				console.log(data);
 				context.commit('setUserInformation', user);
 				if (window.$nuxt) {
 					$nuxt.$emit('getUserInformation', user);
