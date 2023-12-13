@@ -19,13 +19,11 @@
 					<b-navbar-nav class="ml-auto">
 						<b-navbar-nav class="text-lg">
 							<b-nav-item is="li" class="nav-item mr-3 font-semibold">
+								<nuxt-link class="nav-link" :to="{ path: '/requisitos' }">Requisitos</nuxt-link>
+							</b-nav-item>
+							<b-nav-item is="li" class="nav-item mr-3 font-semibold">
 								<a class="nav-link" href="https://wa.me/6271390469" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 							</b-nav-item>
-							<!-- <b-nav-item is="li" class="nav-item mr-3 font-semibold">
-								<a class="nav-link" href="tel:6275234595" target="_blank">
-									<i class="fa-solid fa-phone"></i>
-								</a>
-							</b-nav-item> -->
 							<!-- <b-nav-item is="li" class="nav-item mr-3 font-semibold">
 								<a class="nav-link" href="https://example.com" target="_blank">
 									<i class="fa-solid fa-envelope"></i>

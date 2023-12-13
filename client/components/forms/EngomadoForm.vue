@@ -2,24 +2,24 @@
 	<b-form @submit.prevent="savePlateCard">
 		<div class="justify-content-center app-content pt-3 pb-3">
 			<h3 class="mb-4">{{ title }}</h3>
-			<p>En esta página podrás agregar engomados de uno por uno o cargando un archivo de tipo .csv con la información.</p>
+			<p>En esta página podrás agregar engomados de uno por uno o cargando un archivo de tipo .xlsx con la información.</p>
 		</div>
 		<hr />
 		<div class="box">
 			<div class="row">
 				<div class="col-md">
 					<h4>Carga masiva</h4>
-					<p>Para poder subir todos los datos de manera correcta favor de descagar el .csv de referencia.</p>
+					<p>Para poder subir todos los datos de manera correcta favor de descagar el archivo .xlsx de referencia.</p>
 				</div>
 			</div>
 			<div class="row pb-3">
 				<div class="col-md">
-					<span>Descarga el archivo de ejemplo.</span>
-					<br><input type="file" @change="handleFileUpload" accept=".csv" />
+					<span>Descarga el archivo de ejemplo. <b>No olvides eliminar las filas de referencia</b></span>
+					<br><input type="file" @change="handleFileUpload" accept=".xlsx" />
 				</div>
 				<div class="col-md">
-					<span>Sube tu archivo .csv con la información.</span>
-					<br><input type="file" @change="handleFileUpload" accept=".csv" />
+					<span>Sube tu archivo .xlsx con la información.</span>
+					<br><input type="file" @change="handleFileUpload" accept=".xlsx" />
 				</div>
 			</div>
 			<div class="row">
@@ -349,10 +349,10 @@ export default {
 	      if (!file) return;
 
 	      const formData = new FormData();
-	      formData.append('csvFile', file);
+	      formData.append('file', file);
 
 	      // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
-	      axios.post('YOUR_API_ENDPOINT', formData)
+	      this.$axios.post('/api/template/upload', formData)
 	        .then((response) => {
 	          console.log('CSV data uploaded successfully');
 	        })

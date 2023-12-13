@@ -19,6 +19,8 @@ const schema = new mongoose.Schema({
 const ServiceCarriers = mongoose.model('services_carriers', schema);
 const ServiceFulfillments = mongoose.model('services_fulfillments', schema);
 
+const ExcelJS = require('exceljs');
+
 const mysql = require('mysql2/promise');
 
 class AppsController{
@@ -81,7 +83,165 @@ class AppsController{
         } catch(err){
             next(err)
         }
-    };
+    }
+
+    async uploadCsv(req, res, next) {
+        try {
+            let recordsInserted = 0;
+
+            const dbStream = new Transform({
+                transform(chunk, encoding, callback) {
+                    // Insert data into the database
+                    const query = 'INSERT INTO engomados (active, first_name, last_name, plate, img_owner, img_car, img_card, car_model, car_brand, car_line, car_type, car_serial_number, expedition_at, expires_at) VALUES ?';
+
+                    DB_pool.query(query, [chunk], (err) => {
+                        if (err) {
+                            console.error('Error inserting data into the database:', err);
+                        } else {
+                            recordsInserted += chunk.length;
+                        }
+                        callback();
+                    });
+                },
+            });
+
+            const results = [];
+
+            fs.createReadStream(req.file.path)
+            .pipe(csv())
+            .on('data', (data) => {
+                let images = ['img_owner', 'img_car', 'img_card'];
+                
+                images.forEach(attr => {
+                    let imageFileName = `${attr}_${req.query.id}.png`;
+
+                    if (data[attr]) {
+                        // Save the image to the 'public/images' folder as a static asset
+                        let imagePath = path.join('client/static/assets/img', imageFileName);
+
+                        // Convert base64 image data to a file
+                        base64Img.img(data[attr], 'client/static/assets/img', imageFileName, (err) => {
+                            if (err) {
+                                console.error('Error saving the image:', err);
+                            }
+                        });
+                        data[attr] = imagePath;
+                    }
+                });
+
+                const record = [
+                  1,   //active
+                  data.first_name,   //first_name
+                  data.last_name,   //last_name
+                  data.plate, //plate number
+                  data.img_owner || '/images/saeiv.png',   //img_owner
+                  data.img_car || '/images/saeiv.png',   //img_car
+                  data.img_card || '',   //img_card
+                  data.car_model || '',   //car_model
+                  data.car_brand || '',   //car_brand
+                  data.car_line || '',   //car_line
+                  data.car_type || '',   //car_type
+                  data.car_serial_number || '',   //car_serial_number
+                  data.expedition_at || '',   //expedition_at
+                  data.expires_at || '',   //expires_at
+                  ];
+                console.log('record',record);
+                results.push(record);
+
+                if (results.length >= 50) {
+              // Flush to the database every 50 records (adjust as needed)
+                  dbStream.push(results);
+                  results.length = 0;
+                }
+            })
+            .on('end', () => {
+            // Handle any remaining records
+                if (results.length > 0) {
+                  dbStream.push(results);
+              }
+              dbStream.end();
+              dbStream.on('finish', () => {
+                  res.status(200).send(`File uploaded successfully. ${recordsInserted} records inserted.`);
+              });
+            });
+        } catch (error) {
+            console.error('Error processing file:', error);
+            res.status(500).send('Error uploading file.');
+        }
+    }
+
+    async uploadExcel(req, res, next) {
+        try {
+            let recordsInserted = 0;
+
+            const workbook = new ExcelJS.Workbook();
+            await workbook.xlsx.readFile(req.file.path);
+            const worksheet = workbook.getWorksheet('Engomados');
+
+            const dbStream = new Transform({
+                transform(chunk, encoding, callback) {
+                // Insert data into the database
+                    const query = 'INSERT INTO engomados (active, first_name, last_name, plate, img_owner, img_car, img_card, car_model, car_brand, car_line, car_type, car_serial_number, expedition_at, expires_at) VALUES ?';
+
+                    DB_pool.query(query, [chunk], (err) => {
+                        if (err) {
+                            console.error('Error inserting data into the database:', err);
+                        } else {
+                            recordsInserted += chunk.length;
+                        }
+                        callback();
+                    });
+                },
+            });
+
+            const results = [];
+
+            worksheet.eachRow((row, rowNumber) => {
+                if (rowNumber === 1) {
+                // Skip header row
+                    return;
+                }
+
+                let record = {
+                    active: row.getCell('active').value,
+                    first_name: row.getCell('first_name').value,
+                    last_name: row.getCell('last_name').value,
+                    plate: row.getCell('plate').value,
+                    img_owner: row.getCell('img_owner').value || '/images/saeiv.png',
+                    img_car: row.getCell('img_car').value || '/images/saeiv.png',
+                    img_card: row.getCell('img_card').value || '',
+                    car_model: row.getCell('car_model').value || '',
+                    car_brand: row.getCell('car_brand').value || '',
+                    car_line: row.getCell('car_line').value || '',
+                    car_type: row.getCell('car_type').value || '',
+                    car_serial_number: row.getCell('car_serial_number').value || '',
+                    expedition_at: row.getCell('expedition_at').value || '',
+                    expires_at: row.getCell('expires_at').value || '',
+                };
+
+                results.push(Object.values(record));
+
+                if (results.length >= 50) {
+                // Flush to the database every 50 records (adjust as needed)
+                    dbStream.push(results);
+                    results.length = 0;
+                }
+            });
+
+        // Handle any remaining records
+            if (results.length > 0) {
+                dbStream.push(results);
+            }
+
+            dbStream.end();
+            dbStream.on('finish', () => {
+                res.status(200).send(`File uploaded successfully. ${recordsInserted} records inserted.`);
+            });
+        } catch (error) {
+            console.error('Error processing file:', error);
+            res.status(500).send('Error uploading file.');
+        }
+    }
 
     async createEngomado(req, res, next) {
         if(req.body.file && req.body.file != ''){

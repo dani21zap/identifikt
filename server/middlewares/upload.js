@@ -3,8 +3,12 @@ const multer = require('multer');
 // const upload = multer({ dest:  });
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-       // console.log(file)
-        cb(null, "client/static/assets/img/apps");
+        const ext = path.extname(file.originalname);
+        if (ext === '.xlsx') {
+            cb(null, "client/static/assets/file");
+        } else {
+            cb(null, "client/static/assets/img");
+        }
     }
     ,
     filename: (req, file, cb) => {

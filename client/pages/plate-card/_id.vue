@@ -1,12 +1,31 @@
 <template>
 	<div class="container pt-5 pb-5">
-		<forms-card title="Agrega un card"></forms-card>
+		<h3 class="mb-4">Tarjeta de conductor en línea</h3>
+		<p>A continuación se lista la información del conductor para el cual se ingresaron los datos.</p>
+		<hr />
+		<forms-card class="component-to-save"></forms-card>
+		<div class="flex-row justify-content-center adjustSm mt-3">
+			<b-button v-wave class="w-32" size="md" variant="primary" :to="{ name: 'home' }">
+			Inicio.
+			</b-button>
+
+			<b-button v-wave class="w-32" size="md" variant="primary" :to="{ name: 'terms-and-conditions' }">
+			Terminos y condiciones.
+			</b-button>
+
+			<b-button v-wave class="w-32" size="md" :disabled="isLoading" variant="primary" @click="savePlateCard">
+			<i class="fas fa-save"></i>
+			Guardar tarjeta
+			<custom-spinner v-if="isLoading"></custom-spinner>
+			</b-button>
+		</div>
 	</div>
 </template>
 
 <script>
 import ServicesMethod from '@/components/services/Method.vue';
 import { mapActions, mapState } from 'vuex';
+import html2canvas from 'html2canvas';
 
 export default {
 	layout: 'simple',
@@ -29,7 +48,7 @@ export default {
 				nuxtlink: "/register"
 			}
 			],
-			isLoading: true,
+			isLoading: false,
 			title: 'Integration completed',
 			params: this.$route.query,
 			ecommerce_image: null,
@@ -49,19 +68,23 @@ export default {
 	},
 
 	methods: {
-		async getPlateData(plate_id) {
-			let query = {};
-			if (plate_id) {
-				query = {plate_id: plate_id};
+		async savePlateCard(plate_id) {
+			this.isLoading = true;
+			const componentToSave = document.querySelector('.component-to-save');
+
+			if (componentToSave) {
+				const canvas = await html2canvas(componentToSave);
+
+				// Convert the canvas to a data URL
+				const imageDataURL = canvas.toDataURL('image/png');
+
+				// Create a temporary anchor element to trigger the download
+				const a = document.createElement('a');
+				a.href = imageDataURL;
+				a.download = `${this.params.id}_card.png`; // Set the filename
+				a.click();
 			}
-			try {
-				const { data } = await this.$axios.get(`/api/engomados/tarjeta`, );
-				this.ecommerce_image = data[0].image;
-				this.ecommerce_resources = data[0].resources;
-				this.isLoading = false;
-			} catch (error) {
-				this.showError(error);
-			}
+			this.isLoading = false;
 		}
 	},
 	...mapActions('userInformation', ['getUserInformation']),
@@ -87,6 +110,12 @@ export default {
 		.button-text {
 	    	font-size: 0.875rem; /* 14px */
 			line-height: 1.25rem; /* 20px */
+		}
+		.adjustSm {
+			display:flex;
+			flex-direction: column;
+			width: 60%;
+    		margin: auto;
 		}
 	}
 </style>

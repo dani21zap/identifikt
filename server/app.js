@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // app.use(require('./middlewares/ensure-ssl'));
 app.use(routes);
-app.use(csrf);
+// app.use(csrf);
 // app.use("/oauth",require('./routes/oauth.routes'));
 // error handler
 global.BadRequestError = require('./errors/badrequest.error');

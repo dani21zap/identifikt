@@ -1,14 +1,13 @@
 <template>
     <div class="bg-gray-200 py-16">
         <div class="container">
-            <h2 class="text-brand font-weight-bold align-items-center fs-36px md:text-5xl text-center mb-5">Some use cases</h2>
+            <h2 class="text-brand font-weight-bold align-items-center fs-36px md:text-5xl text-center mb-5">"Deseo que el pueblo siempre tenga las riendas del poder en sus manos. El pueblo pone y el pueblo quita y es el único soberano al que debo sumisión y obediencia."</h2>
             <p class="text-2xl text-center">
-                <img class="logo" height="15px" src="/images/logo-negro.svg" alt="Logo ecartapi">
-                is the perfect solution to save time and money when you need to develop integrations with shopping carts or marketplaces.
+                - Andres Manuel Lopez Obrador
             </p>
-            <ul class="row list mt-5">
+            <!-- <ul class="row list mt-5">
                 <li class="col-md-4 mb-2" v-for="item in items" :key="item.text">{{item.text}}</li>
-            </ul>
+            </ul> -->
         </div>
        <!--  <div class="svg-border-rounded text-light">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor">
