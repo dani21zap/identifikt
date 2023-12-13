@@ -1,25 +1,25 @@
 <template>
-	<div class="">
-		<div class="bg-blue-royal">
-			<div class="container">
-				<h2 class="text-white text-3xl md:text-3xl mb-12">
-					Somos una asociación civil enfocada a defender el patrimonio de las familias mexicas, especializadas en la regularización e importación de vehiculos.
-				</h2>
-				<div class="adjustSm">
-					<nuxt-link 
-  						class="d-inline-block ml-2 text-white rounded-pill pr-5 pl-5 pt-2 pb-2 bg-red text-lg font-semibold text-center"
-  						:to="{ name: 'login', query: { plate_auth: true } }"
-					>
-  					Identifica tu engomado.
-						</nuxt-link>
-						<!-- <a href="https://rapidapi.com/ecartapi-ecartapi-default/api/ecartapi1" target="_blank" class="mt-3 d-inline-block ml-2 text-white rounded-pill pr-5 pl-5 pt-2 pb-2 bg-brand text-lg font-semibold">Test our API</a> -->
-				</div>
+	
+	<div class="bg-blue-royal hero py-16">
+		<div class="container text-center">
+			<h2 class="text-white text-3xl md:text-3xl mb-12">
+				Somos una asociación civil enfocada a defender el patrimonio de las familias mexicas, especializadas en la regularización e importación de vehiculos.
+			</h2>
+			<div class="adjustSm">
+				<nuxt-link 
+					class="d-inline-block ml-2 text-white rounded-pill pr-5 pl-5 pt-2 pb-2 bg-secondary text-lg font-semibold"
+						:to="{ name: 'login', query: { plate_auth: true } }"
+				>
+					Identifica tu engomado.
+					</nuxt-link>
+					<!-- <a href="https://rapidapi.com/ecartapi-ecartapi-default/api/ecartapi1" target="_blank" class="mt-3 d-inline-block ml-2 text-white rounded-pill pr-5 pl-5 pt-2 pb-2 bg-brand text-lg font-semibold">Test our API</a> -->
 			</div>
 		</div>
-		<!-- <div class="container pointer-events-none">
-			<img data-not-lazy src="/images/celulares-integraciones.png" alt="Integrations ecartapi" class="w-100" :class="$style.image" />
-		</div> -->
 	</div>
+	<!-- <div class="container pointer-events-none">
+		<img data-not-lazy src="/images/celulares-integraciones.png" alt="Integrations ecartapi" class="w-100" :class="$style.image" />
+	</div> -->
+	
 </template>
 
 
@@ -41,6 +41,10 @@
 
 </style>
 <style lang="css">
+	.py-16 {
+        padding-top: 4rem!important;
+        padding-bottom: 4rem!important;
+    }
 	.text-3xl {
 	    font-size: 1.875rem!important;
 	    line-height: 2.25rem!important;

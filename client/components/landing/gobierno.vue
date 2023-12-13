@@ -1,10 +1,10 @@
 <template>
     <div class="bg-gray-200 py-16">
         <div class="container">
-            <h2 class="text-brand font-weight-bold align-items-center fs-36px md:text-5xl text-center mb-5">"Deseo que el pueblo siempre tenga las riendas del poder en sus manos. El pueblo pone y el pueblo quita y es el único soberano al que debo sumisión y obediencia."</h2>
-            <p class="text-2xl text-center">
+            <h2 class="text-brand font-weight-bold align-items-center fs-36px md:text-5xl text-center mb-5">"Las organizaciones son grandes en la medida que los agremiados luchen y defiendan lo que por derecho les pertenece por eso IDENTIFI-K-T es grande."</h2>
+            <!-- <p class="text-2xl text-center">
                 - Andres Manuel Lopez Obrador
-            </p>
+            </p> -->
             <!-- <ul class="row list mt-5">
                 <li class="col-md-4 mb-2" v-for="item in items" :key="item.text">{{item.text}}</li>
             </ul> -->
