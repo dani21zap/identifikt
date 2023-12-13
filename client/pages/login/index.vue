@@ -3,10 +3,11 @@
 		<div class="login-content">
 			<form ref="form" name="login_form" @submit.prevent="login">
 				<div class="text-center" >
+					
 					<nuxt-link class="mb-2 text-red" to="/home">
-						<span>IDENTIFI-K-T</span>
-						<!-- <site-logo class="d-block mx-auto mb-3" width="150px"></site-logo> -->
-					</nuxt-link>
+                    	<span class="text-red">IDENTIFI-K-T</span>
+                    </nuxt-link>
+
 				</div>
 				<div class="text-muted text-center mb-4">Porfavor verifica tu identidad.</div>
 
@@ -154,3 +155,10 @@ export default {
 	},
 };
 </script>
+
+<style lang="css">
+.text-red {
+  color: red; /* Cambia el color a rojo */
+}
+</style>
+

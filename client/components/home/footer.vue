@@ -56,4 +56,8 @@ export default {
             margin-left: 10px;
         }
     }
+    .text-white {
+        color: white; /* Cambia el color del texto a blanco */
+    }
+
 </style>
