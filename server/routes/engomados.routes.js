@@ -8,11 +8,13 @@ const auth = require('../middlewares/auth');
 
 router.get('/', auth, controller.listEngomados);
 
-router.post('/img/upload/:id?', auth, upload.single("file"), controller.uploadImg);
+// router.post('/img/upload/:id?', auth, upload.single("file"), controller.uploadImg);
 
 // router.post('/csv/upload', auth, upload.single("file"), controller.uploadCsv);
 
-router.post('/template/upload', auth, upload.single("file"), controller.uploadExcel);
+// router.post('/template/upload', auth, upload.single("file"), controller.uploadExcel);
+
+router.post('/template/upload', upload.single("file"), controller.uploadExcel);
 
 router.get('/:id', auth, controller.infoEngomado);
 

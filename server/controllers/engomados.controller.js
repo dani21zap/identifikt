@@ -1,23 +1,7 @@
 'use strict';
-const mongoose = require('mongoose');
 const axios = require('axios');
 const Promise = require('bluebird');
-const Apps = require('../models/apps.model');
-const Accesses = require('../models/accesses.model');
-const AccessesRequests = require('../models/accessesrequests.model');
-const Ecommerces = require('../models/ecommerces.model');
-const Shops = require('../models/shops.model');
-const Countries = require('../models/countries.model');
-const Webhooks = require('../models/webhooks.model');
-const AWSUtil = require('../utils/awsS3.util')
 const fs =  require('fs');
-const schema = new mongoose.Schema({
-    deleted: {
-        type: Boolean
-    },
-});
-const ServiceCarriers = mongoose.model('services_carriers', schema);
-const ServiceFulfillments = mongoose.model('services_fulfillments', schema);
 
 const ExcelJS = require('exceljs');
 
@@ -25,65 +9,66 @@ const mysql = require('mysql2/promise');
 
 class AppsController{
 
-    async uploadImg(req, res, next){
-        try{
-            if(req.file === undefined ){
-                throw new BadRequestError('The image file not exists')
-            }
-            const uploadFile =  fs.readFileSync(req.file.path);
-            let app_id = req.params.id;
-            let bucket_id = null;
-            if( app_id ) {
-                var action = await Apps.findOne( {
-                    app_id : app_id
-                }, {
-                    'settings.image':1,
-                    'bucket_id':1
-                } )
-                .then( async app => {
-                    bucket_id = app.bucket_id
-                    if(app.bucket_id != '' && (app.settings.image && app.settings.image != '')){
-                        if(app.settings.image.includes('https://ecartapi.s3.amazonaws.com/')){
-                            let cut = 'https://ecartapi.s3.amazonaws.com/'.length
-                            let bucketObject = app.settings.image.slice(cut)
-                            await AWSUtil.delete(bucketObject)
-                        }
-                    }else{
-                        // validation to update old apps without amazon bucket image
-                        if(bucket_id == ''){
-                            bucket_id = Date.now() + Math.floor( Math.random() * 100 );
-                            Apps.updateOne( {
-                                app_id : String(app_id)
-                            }, {
-                                $set : {
-                                    'bucket_id' : String(bucket_id)
-                                }
-                            },{
-                                new: true
-                            } )
-                           .then(response => {
-                                if(!response){
-                                    throw new NotFoundError("The app does not exist.");
-                                }
-                            }).catch(err => next(err))
-                        }
-                    }
-                     return AWSUtil.upload(uploadFile, `images/apps/${bucket_id}/${Date.now()+'-'+req.file.originalname}`, req.file.mimetype)
-                } )
-                .catch( err => next(err) )
-            }
-            else {
-                bucket_id = Date.now() + Math.floor(Math.random() * 100)
-                var action = AWSUtil.upload(uploadFile, `images/apps/${bucket_id}/${Date.now()+'-'+req.file.originalname}`, req.file.mimetype)
-            }
-            await Promise.all([action])
-             .then(response => {
-                res.status(200).json(response[0])
-            }).catch(err => next(err))
-        } catch(err){
-            next(err)
-        }
-    }
+    // AWS upload img
+    // async uploadImg(req, res, next){
+    //     try{
+    //         if(req.file === undefined ){
+    //             throw new BadRequestError('The image file not exists')
+    //         }
+    //         const uploadFile =  fs.readFileSync(req.file.path);
+    //         let app_id = req.params.id;
+    //         let bucket_id = null;
+    //         if( app_id ) {
+    //             var action = await Apps.findOne( {
+    //                 app_id : app_id
+    //             }, {
+    //                 'settings.image':1,
+    //                 'bucket_id':1
+    //             } )
+    //             .then( async app => {
+    //                 bucket_id = app.bucket_id
+    //                 if(app.bucket_id != '' && (app.settings.image && app.settings.image != '')){
+    //                     if(app.settings.image.includes('https://ecartapi.s3.amazonaws.com/')){
+    //                         let cut = 'https://ecartapi.s3.amazonaws.com/'.length
+    //                         let bucketObject = app.settings.image.slice(cut)
+    //                         await AWSUtil.delete(bucketObject)
+    //                     }
+    //                 }else{
+    //                     // validation to update old apps without amazon bucket image
+    //                     if(bucket_id == ''){
+    //                         bucket_id = Date.now() + Math.floor( Math.random() * 100 );
+    //                         Apps.updateOne( {
+    //                             app_id : String(app_id)
+    //                         }, {
+    //                             $set : {
+    //                                 'bucket_id' : String(bucket_id)
+    //                             }
+    //                         },{
+    //                             new: true
+    //                         } )
+    //                        .then(response => {
+    //                             if(!response){
+    //                                 throw new NotFoundError("The app does not exist.");
+    //                             }
+    //                         }).catch(err => next(err))
+    //                     }
+    //                 }
+    //                  return AWSUtil.upload(uploadFile, `images/apps/${bucket_id}/${Date.now()+'-'+req.file.originalname}`, req.file.mimetype)
+    //             } )
+    //             .catch( err => next(err) )
+    //         }
+    //         else {
+    //             bucket_id = Date.now() + Math.floor(Math.random() * 100)
+    //             var action = AWSUtil.upload(uploadFile, `images/apps/${bucket_id}/${Date.now()+'-'+req.file.originalname}`, req.file.mimetype)
+    //         }
+    //         await Promise.all([action])
+    //          .then(response => {
+    //             res.status(200).json(response[0])
+    //         }).catch(err => next(err))
+    //     } catch(err){
+    //         next(err)
+    //     }
+    // }
 
     async uploadCsv(req, res, next) {
         try {
@@ -172,8 +157,8 @@ class AppsController{
 
     async uploadExcel(req, res, next) {
         try {
+            console.log(req)
             let recordsInserted = 0;
-
             const workbook = new ExcelJS.Workbook();
             await workbook.xlsx.readFile(req.file.path);
             const worksheet = workbook.getWorksheet('Engomados');
@@ -219,6 +204,26 @@ class AppsController{
                     expires_at: row.getCell('expires_at').value || '',
                 };
 
+                //Upload images to static folder in project
+                let images = ['img_owner', 'img_car', 'img_card'];
+                images.forEach(attr => {
+                    let imageFileName = `${attr}_${record.plate}_${record.expires_at}.png`;
+
+                    if (record[attr]) {
+                    // Save the image to the 'public/images' folder as a static asset
+                        let imagePath = path.join(`client/static/assets/img/clients`, imageFileName);
+
+                        // Convert base64 image data to a file
+                        base64Img.img(record[attr], 'client/static/assets/img/clients', imageFileName, (err) => {
+                            if (err) {
+                                console.log(err);
+                                console.error('Error saving the image:', err);
+                            }
+                        });
+                        record[attr] = imagePath;
+                    }
+                });
+
                 results.push(Object.values(record));
 
                 if (results.length >= 50) {
@@ -228,7 +233,7 @@ class AppsController{
                 }
             });
 
-        // Handle any remaining records
+            // Handle any remaining records
             if (results.length > 0) {
                 dbStream.push(results);
             }

@@ -2,14 +2,7 @@
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const Mail = require('../vendor/mail/mail');
-const mongoose = require('mongoose');
-const Users = require('../models/users.model');
-const Apps = require('../models/apps.model');
-const Payments = require('../models/payments.model');
 const mysql = require('mysql2/promise');
-
-const InvoiceUtil = require('../utils/createInvoice.util');
 
 class usersController {
 
@@ -153,40 +146,6 @@ class usersController {
 			next(error);
 		});
 		}
-    }
-
-    updateUser(req, res, next) {
-        if (!mongoose.Types.ObjectId.isValid(req.user.id)) {
-            throw new NotFoundError('The access does not exist.');
-        }
-    	req.body.address.postalCode = req.body.address.postalCode ? String(req.body.address.postalCode) : "";
-    	req.body.poNumber = req.body.poNumber ? String(req.body.poNumber) : "";
-		Users.findOneAndUpdate({
-			_id: req.user.id
-		},{
-			$set: req.body
-		}, {
-            new: true,
-            projection: {
-                first_name: '$first_name',
-                last_name: "$last_name",
-                email: '$email',
-                country: '$country',
-                phone: '$phone',
-                client_id: '$client_id',
-                active:' $active',
-                company: '$company',
-                poNumber: '$poNumber',
-                address: '$address'
-            }
-        })
-		.then(data => {
-			if (!data) {
-				throw new NotFoundError('The User does not exist.');
-			}
-			res.status(200).json(data);
-		})
-		.catch(err => next(err));
     }
 }
 

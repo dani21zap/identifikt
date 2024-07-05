@@ -1,6 +1,5 @@
 'use strict';
 
-const mongoose = require('mongoose');
 const mysql = require('mysql2/promise');
 const Promise = require('bluebird');
 
@@ -23,16 +22,7 @@ const configSQL = {
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_DATABASE,
 }
-module.exports.run = () => {
-    mongoose.connect(process.env.ECART_URI_DB, config)
-    .then(() => {
-        Promise.promisifyAll(mongoose);
-        console.log('Database connection SUCCESS!!');
-    })
-    .catch(err => {
-        console.log('Database connection ERROR: ', err);
-    });
-    
+module.exports.run = () => {    
     global.DB_pool = mysql.createPool(configSQL);
     // test DB connection
     DB_pool.getConnection()
