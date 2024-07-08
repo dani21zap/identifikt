@@ -1,10 +1,6 @@
 <template>
 	<div>
 		<landing-main-hero></landing-main-hero>
-		<!-- <landing-why-ecart-api></landing-why-ecart-api> -->
-		<!-- <landing-benefits-carousel></landing-benefits-carousel> -->
-		<!-- <landing-supported-ecommerces></landing-supported-ecommerces>
-		<landing-data-collections></landing-data-collections> -->
 		<landing-gobierno></landing-gobierno>
 		<landing-mexico-seguro></landing-mexico-seguro>
 	</div>

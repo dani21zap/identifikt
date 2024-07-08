@@ -1,7 +1,12 @@
 <template>
 	
-	<div class="bg-blue-royal hero py-16">
-		<div class="container text-center">
+	<!-- <div class="bg-blue-royal hero py-16"> -->
+		<div class="bg hero py-16"
+			style="background-image: url('/images/main_background.jpeg'); 
+			background-size: cover; 
+			background-position: center;"
+		>
+		<div class="container text-center overlay">
 			<h2 class="text-white text-3xl md:text-3xl mb-12">
 				Somos una asociación civil enfocada a defender el patrimonio de las familias mexicas, especializadas en la regularización e importación de vehiculos.
 			</h2>
@@ -12,14 +17,9 @@
 				>
 					Identifica tu engomado.
 					</nuxt-link>
-					<!-- <a href="https://rapidapi.com/ecartapi-ecartapi-default/api/ecartapi1" target="_blank" class="mt-3 d-inline-block ml-2 text-white rounded-pill pr-5 pl-5 pt-2 pb-2 bg-brand text-lg font-semibold">Test our API</a> -->
 			</div>
 		</div>
-	</div>
-	<!-- <div class="container pointer-events-none">
-		<img data-not-lazy src="/images/celulares-integraciones.png" alt="Integrations ecartapi" class="w-100" :class="$style.image" />
-	</div> -->
-	
+	</div>	
 </template>
 
 
@@ -37,6 +37,12 @@
 	@include media-breakpoint-up(md) {
 		margin-top: -150px;
 	}
+}
+
+.overlay {
+	background-color: rgba(0,0,0,0.5);
+	width: 100%; /* Full width (cover the whole page) */
+  	height: 100%; 
 }
 
 </style>

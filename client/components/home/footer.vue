@@ -7,7 +7,7 @@
                         <span class='fas fa-envelope ft-option'></span> <a href="mailto:admin@identifikt.com" class="text-gray-500">admin@identifikt.com</a>
                     </p>
                     <p class='pt-2'>
-                        <span class='fas fa-solid fa-phone ft-option'></span> <a href="tel:62-7523-4595" class="text-gray-500">62-7523-4595</a>
+                        <span class='fas fa-solid fa-phone ft-option'></span> <a href="tel:62-7523-4595" class="text-gray-500">627-523-4595</a>
                     </p>
                 </div>                
                 <div class="flex-md-column pt-3">
