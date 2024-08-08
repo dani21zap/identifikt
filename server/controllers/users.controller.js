@@ -100,7 +100,7 @@ class usersController {
 		}
 		return new Users(user).save()
 		.then(response => {
-			new Mail(res).confirmation( response.email, `${process.env.HOSTNAME}/api/confirmation/${response._id}` );
+			// new Mail(res).confirmation( response.email, `${process.delete.env.HOSTNAME}/api/confirmation/${response._id}` );
 			res.status(201).json({success: true});
 		})
 		.catch(err => next(err));

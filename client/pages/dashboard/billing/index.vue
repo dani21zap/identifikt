@@ -166,10 +166,10 @@ export default {
 	head() {
 		return {
 			title: 'Billing',
-			script: [
-			{
-				src: `${process.env.PAYMENT_URL}/sdk/pay.js`
-			}]
+			// script: [
+			// {
+			// 	src: `${process.delete.env.PAYMENT_URL}/sdk/pay.js`
+			// }]
 		};
 	},
 

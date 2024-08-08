@@ -60,56 +60,6 @@ const modules = [
 			newestOnTop: true,
 			position: 'bottom-right',
 		}
-	],
-	['nuxt-cookie-control', {
-		colors: {
-			barButtonHoverBackground: '#DC5526',
-			modalButtonHoverBackground: '#DC5526',
-			controlButtonHoverBackground: '#DC5526',
-			checkboxInactiveBackground: '#869ac0',
-			controlButtonIconColor: '#fff',
-			controlButtonBackground: '#000',
-		},
-		css: true,
-    	//block iframes to prevent them from adding additional cookies
-		blockIframe: false,
-
-		text:{
-			barTitle: 'About cookies in this site',
-			close: 'X',
-		},
-		necessary: [
-		{
-			identifier: 'required',
-			name: 'Strictly necessary cookies',
-			description:  'They are necessary for essential functions for the application to work. They cannot be disabled on our systems. You may have the option to set your browser to block these cookies or alert you to their presence, but without them, parts of the website will not work.'
-		},
-		],
-		optional: [
-		{
-			identifier: 'ga',
-			name: 'Performance cookies',
-			description: 'They allow us to measure and analyze usage, evaluate performance, understand user interactions and improve our products and services.',
-			src: `https://www.googletagmanager.com/gtm.js?id=${process.env.GTM}`,
-			accepted: () => {
-				if(process.env.NODE_ENV == 'development'){
-					console.log('Google GTM ENABLED. ID= ' + process.env.GTM);
-				}
-				window.dataLayer = window.dataLayer || [];
-			    window.dataLayer.push({
-			      'gtm.start': new Date().getTime(),
-			      event: 'gtm.js'
-			    });
-			},
-			declined: () => {
-				if(process.env.NODE_ENV == 'development'){
-					console.log('Google GTM not allowed');
-				}
-
-			},
-		}
-		]
-	}]
 	];
 
 const routerConfig = {

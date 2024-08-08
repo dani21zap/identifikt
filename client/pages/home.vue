@@ -19,13 +19,6 @@ export default {
 					content:
 						'Asociación civil enfocada a defender el patrimonio de las familias mexicas, especializadas en la regularización e importación de vehiculos.',
 				}
-			],
-			link: [
-				{ 
-					rel: 'canonical', 
-					type: 'image/x-icon', 
-					href:`${process.env.ECARTAPI_URL}/home` 
-				},
 			]
 		};
 	},

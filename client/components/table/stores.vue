@@ -126,8 +126,8 @@ export default {
 			currentPage: 1,
 			appId: this.$route.params.id,
 			active: false,
-			oauth_url: process.env.OAUTH_URL,
-			new_store_button_link: this.app.settings && this.app.settings.domain_url && this.app.settings.domain_url ? 'https://' + this.app.settings.domain_url + '?nobar=true&back_device=true' : process.env.OAUTH_URL + '/' + this.$route.params.id + '?nobar=true',
+			// oauth_url: process.delete.env.OAUTH_URL,
+			// new_store_button_link: this.app.settings && this.app.settings.domain_url && this.app.settings.domain_url ? 'https://' + this.app.settings.domain_url + '?nobar=true&back_device=true' : process.delete.env.OAUTH_URL + '/' + this.$route.params.id + '?nobar=true',
 			images: null,
 			rows: 0,
 			filters: {

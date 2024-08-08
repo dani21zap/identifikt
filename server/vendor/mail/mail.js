@@ -13,7 +13,7 @@ class Mail {
 
 	constructor(res) {
 		this.mailgun = require('mailgun-js')({
-			apiKey: process.env.MAILGUN_KEY,
+			// apiKey: process.delete.env.MAILGUN_KEY,
 			domain: 'mail.ecartapi.com'
 		});
 		this.res = res;
@@ -88,7 +88,7 @@ class Mail {
 			subject: `Invoice ${payment.number ? payment.number : ''} for Ecartapi due ${payment.end}`,
 			attachment: attch
 		});
-		payment.billingUrl = `${process.env.HOSTNAME}/dashboard/billing/${payment._id}`
+		// payment.billingUrl = `${process.delete.env.HOSTNAME}/dashboard/billing/${payment._id}`
 		this.res.render('mail/invoice', {
 			user: user,
 			payment: payment,
