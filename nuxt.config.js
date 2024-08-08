@@ -60,7 +60,8 @@ const modules = [
 			newestOnTop: true,
 			position: 'bottom-right',
 		}
-	];
+	]
+];
 
 const routerConfig = {
 	router: {
