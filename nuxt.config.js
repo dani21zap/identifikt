@@ -250,9 +250,6 @@ const config = {
 	},
 	server: {
 		host: '0.0.0.0',
-	},
-	hub: {
-		database: true
 	}
 };
 
