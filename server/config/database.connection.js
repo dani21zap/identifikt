@@ -22,8 +22,7 @@ const configSQL = {
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_DATABASE,
 }
-module.exports.run = () => {   
-    console.log(JSON.stringify(configSQL)) 
+module.exports.run = () => {
     global.DB_pool = mysql.createPool(configSQL);
     // test DB connection
     DB_pool.getConnection()
