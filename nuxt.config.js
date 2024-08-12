@@ -1,4 +1,4 @@
-require('@nuxtjs/dotenv');
+require('dotenv');
 const path = require('path');
 const globImporter = require('node-sass-glob-importer');
 

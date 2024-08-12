@@ -9,6 +9,8 @@ const auth = require('../middlewares/auth');
 
 router.get('/account', auth, controller.account)
 
+router.post('/account', controller.createAdmin);
+
 // router.put('/engomado', auth, (req, res, next) => {
 // 	let validations = Joi.object({
 // 		owner_name: Joi.string(),

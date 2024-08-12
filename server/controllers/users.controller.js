@@ -88,22 +88,27 @@ class usersController {
 		});
 	}
 
-	createRegister(req, res, next) {
-		let user = {
-			first_name: req.body.first_name,
-			last_name: req.body.last_name,
-			password: req.body.password,
-			email: req.body.email,
-			password_confirmation: req.body.password_confirmation,
-			country: req.body.country,
-			phone:req.body.phone
-		}
-		return new Users(user).save()
-		.then(response => {
-			// new Mail(res).confirmation( response.email, `${process.delete.env.HOSTNAME}/api/confirmation/${response._id}` );
-			res.status(201).json({success: true});
+	createAdmin(req, res, next) {
+		const hashedPassword = bcrypt.hashSync(req.body.password, parseInt(process.env.BCRYPT_SALT));
+		DB_pool.query(
+			'INSERT INTO admin (first_name, last_name, password, username) VALUES (?, ?, ?, ?)',
+			[
+				req.body.first_name,
+				req.body.last_name,
+				hashedPassword,
+				req.body.email
+			]
+		)
+		.then( () => {
+			res.status(201).json({
+				success: true,
+				message: `New user created with email: ${req.body.email}`
+			});
 		})
-		.catch(err => next(err));
+		.catch(err => {
+			console.log('Database error:', err);
+			next(err);
+		});		
 	}
 
 	account(req, res, next) {
