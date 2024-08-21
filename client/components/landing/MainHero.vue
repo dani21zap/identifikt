@@ -12,7 +12,7 @@
 			</h2>
 			<div class="adjustSm">
 				<nuxt-link 
-					class="d-inline-block ml-2 text-white rounded-pill pr-5 pl-5 pt-2 pb-2 bg-secondary text-lg font-semibold"
+					class="d-inline-block ml-2 text-white rounded-pill pr-5 pl-5 pt-2 pb-2 bg-primary text-lg font-semibold"
 						:to="{ name: 'login', query: { plate_auth: true } }"
 				>
 					Identifica tu engomado.
@@ -40,10 +40,12 @@
 }
 
 .overlay {
-	background-color: rgba(0,0,0,0.5);
-	width: 100%; /* Full width (cover the whole page) */
-  	height: 100%; 
+    padding: 2rem;
+    border-radius: 10px;
+    background: rgba(47, 47, 47, 0.6);
 }
+
+
 
 </style>
 <style lang="css">
