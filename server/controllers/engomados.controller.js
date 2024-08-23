@@ -308,7 +308,7 @@ class AppsController{
             `
             SELECT * FROM engomados
             WHERE
-                (plate_id LIKE ? OR owner_name LIKE ? OR owner_lastname LIKE ? OR car_serial_number LIKE ?)
+                (plate LIKE ? OR owner_name LIKE ? OR owner_lastname LIKE ? OR car_serial_number LIKE ?)
                 ${expired ? 'AND expires_at < NOW()' : ''}
             ORDER BY expires_at DESC
             LIMIT ? OFFSET ?;
@@ -329,7 +329,7 @@ class AppsController{
         // const offset = (page - 1) * limit;
         // const query = req.query.q || '';
 
-        return DB_pool.query('SELECT * FROM engomados WHERE plate_id = ?;', 
+        return DB_pool.query('SELECT * FROM engomados WHERE plate = ?;', 
             [plate_id])
           .then(([rows, fields]) => {
             const placas = rows[0];
