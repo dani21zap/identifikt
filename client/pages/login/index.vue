@@ -27,13 +27,13 @@
 					<forms-errors-feedback :field="$v.username"></forms-errors-feedback>
 				</b-form-group>
 
-				<b-form-group :label= "plate_auth ? 'Apellido del dueño' : 'Contraseña'">
+				<b-form-group :label= "plate_auth ? 'Apellidos del dueño' : 'Contraseña'">
 					<b-input-group prepend-html="<i class='fas fa-key'></i>">
 						<b-input
 							:state="inputState($v.password)"
 							v-model="password"
-							:label="plate_auth ? 'Apellido' : 'Contraseña'"
-							:placeholder="plate_auth ? 'Apellido' : 'Contraseña'"
+							:label="plate_auth ? 'Apellidos' : 'Contraseña'"
+							:placeholder="plate_auth ? 'Apellidos' : 'Contraseña'"
 							name="password"
 							type="password"
 							size="lg"

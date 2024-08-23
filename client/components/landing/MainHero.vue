@@ -12,7 +12,7 @@
 			</h2>
 			<div class="adjustSm">
 				<nuxt-link 
-					class="d-inline-block ml-2 text-white rounded-pill pr-5 pl-5 pt-2 pb-2 bg-primary text-lg font-semibold"
+					class="d-inline-block ml-2 text-white rounded-pill pr-5 pl-5 pt-2 pb-2 bg-secondary text-lg font-semibold"
 						:to="{ name: 'login', query: { plate_auth: true } }"
 				>
 					Identifica tu engomado.
@@ -38,15 +38,6 @@
 		margin-top: -150px;
 	}
 }
-
-.overlay {
-    padding: 2rem;
-    border-radius: 10px;
-    background: rgba(47, 47, 47, 0.6);
-}
-
-
-
 </style>
 <style lang="css">
 	.py-16 {
@@ -70,7 +61,11 @@
 	.bg-blue-royal {
  		 background-color: royalblue; /* Cambia a tu color azul rey preferido */
 	}
-
+	.overlay {
+		padding: 2rem;
+		border-radius: 10px;
+		background: rgba(47, 47, 47, 0.6);
+	}
 	@media screen and (max-width: 768px) {
 		.adjustSm {
 			display:flex;

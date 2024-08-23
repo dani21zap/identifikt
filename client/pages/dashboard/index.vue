@@ -60,9 +60,9 @@
 							{{ data.item.owner_name }} {{ data.item.owner_lastname }}
 						</span>
 					</template>
-					<!-- <template #cell(plate_id)="data">
+					<!-- <template #cell(plate)="data">
 						<div class="d-flex flex-column items-center">
-							<span>{{ data.plate_id }}</span>
+							<span>{{ data.plate }}</span>
 						</div>
 					</template> -->
 					<template #cell(active)="data">
@@ -113,7 +113,7 @@ export default {
 					label: 'Nombre',
 				},
 				{
-					key: 'plate_id',
+					key: 'plate',
 					label: 'Placa',
 				},
 				{

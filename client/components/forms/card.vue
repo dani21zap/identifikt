@@ -105,7 +105,7 @@ export default {
 	// },
 
 	mounted() {
-		if (localStorage?.user?.data?.plate_id) {
+		if (localStorage?.user?.data?.plate) {
 			this.setData(localStorage.user.data);
 		} else {
 			this.fillPlateCard();
@@ -142,7 +142,7 @@ export default {
 			this.last_name = local.owner_lastname || '';
 			this.phone = local.phone || '';
 			this.email = local.email || '';
-			this.plate = local.plate_id || '';
+			this.plate = local.plate || '';
 			// this.img_owner = local.img_owner || '';
 			// this.img_card = local. || '';
 			this.car_model = local.car_model || '';

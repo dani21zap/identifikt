@@ -50,7 +50,7 @@ class usersController {
 	async createPlateLogin(req, res, next) {
     	// Verificacion placa apellido aparecen en la base de datos
 		return DB_pool.query(
-			'SELECT * FROM engomados WHERE plate_id = ? AND owner_lastname = ?',
+			'SELECT * FROM engomados WHERE plate = ? AND last_name = ?',
 			[req.body.username, req.body.password]
 			)
 		.then(rows => {
@@ -60,18 +60,19 @@ class usersController {
 				let token = jwt.sign(
 					{
 						admin: false,
-						id: user.plate_id,
+						id: user.plate,
 						read: false,
 						write: false,
-						email: user.owner_lastname
+						email: user.last_name
 					},
 					process.env.JWT_SECRET,
 				);
+				console.log(user)
 				return res.status(200).json({
 					success: true,
 					token: token,
 					user: {
-						id: user.plate_id,
+						id: user.plate,
 						read: true,
 						write: false,
 						email: null,
@@ -79,7 +80,7 @@ class usersController {
 					}
 				});
 			} else {
-				throw new UnauthorizedError('Username or password incorrect');
+				throw new UnauthorizedError('Información equivocada');
 			}
 		})
 		.catch (error => {
@@ -134,7 +135,7 @@ class usersController {
 			});
 		} else {
 			return DB_pool.query(
-			'SELECT * FROM engomados WHERE plate_id = ?',
+			'SELECT * FROM engomados WHERE plate = ?',
 			[req.user.id]
 			)
 		.then(rows => {
